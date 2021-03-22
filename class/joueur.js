@@ -1,4 +1,4 @@
-class joueur{
+class Joueur{
     constructor(pseudo) {
         this.pseudo = pseudo;
         this.rendement = 50;
