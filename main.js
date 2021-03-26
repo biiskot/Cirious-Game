@@ -1,14 +1,18 @@
-let player = new Inventaire('bob');
+function launchNewGame (){
 
-console.log(player.pseudo);
-let Map1 = new Map(20,20);
+  let player = new Inventaire('bob');
+  let Map1 = new Map(20,20,player);
 
-let testTerre = new ParceTerre();
-Map1.placerParcelle(1,1,testTerre); // Place une parcelle de terre en (1,1)
+  let testTerre = new ParceTerre();
+  Map1.placerParcelle(1,1,testTerre); // Place une parcelle de terre en (1,1)
 
 
+  // if clic pour labourer
+  let newParceTerre = new ParceTerre();
+  //testTerre.launchPousse(player.carotte, testTerre);
+}
 
-testTerre.launchPousse(player.carotte, testTerre);
+launchNewGame();
 
 /*
 console.log("nb blé : " + player.blé.nb_poss);

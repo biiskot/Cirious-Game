@@ -1,18 +1,20 @@
 class Map{
     constructor(longueur, largeur, player) {
-        this.tabMap = new Array(longueur);
+        this.H = longueur;
+        this.L = largeur;
+        this.tabMap = new Array(this.H);
 
         //Création Map tab 2 dimensions
         for (var i = 0; i < this.tabMap.length; i++) {
-            this.tabMap[i] = new Array(largeur);
+            this.tabMap[i] = new Array(this.L);
         }
 
         //Initialiser toutes les cases en herbe :
-        for (var i = 0; i < longueur.length; i++) {
-            for (var j = 0; j < largeur.length; j++) {
+        for (var i = 0; i < this.H.length; i++) {
+            for (var j = 0; j < this.L.length; j++) {
                 this.tabMap[i][j] = new Parcelle(1, 1, player); // de base herbe dans le constructor de Parcelle()
                 this.tabMap[i][j].addEventListener(click => {
-                    this.launchParceterre( this.tabMap[i][j]);
+                    this.launchParceterre(this.tabMap[i][j]);
                 })
             }
             //afficherMap();
@@ -63,10 +65,10 @@ class Parcelle{
     launchParceterre(parcelle){
                                                                                                         /*
                                                                                                            ANIMATION LABOUREUR
-                                                                                                         */
+                                                                                                        */
         wait(0.5);
-        parcelle = new ParceTerre();                    // a la place de cliquer sur la terre et ça launchPousse, il faudrai que sa pop up les graines où nb_poss > 0 et addeventlistener sur tt les graines, qui click=> launchpousse et comme ça la tu recup grainechoisie
-        parcelle.addEventListener(click =>{
+        parcelle = new ParceTerre();           // a la place de cliquer sur la terre et ça launchPousse, il faudrai que sa pop up les graines où nb_poss > 0 et addeventlistener sur tt les graines, qui click=> launchpousse et comme ça la tu recup grainechoisie
+        parcelle.addEventListener('click', function(){
             this.launchPousse(this.graineChoisie, parcelle);    // Graine choisie correspond ??
         })
     }
@@ -87,18 +89,19 @@ class ParceTerre extends Parcelle {
     launchPousse(graine, parcelledeterre) {
                                                                                                         /*
                                                                                                             ANIMATION TRACTEUR
-                                                                                                         */
+                                                                                                        */
         wait(0.5);
         parcelledeterre = new ParcePousse(graine, parcelledeterre, this.player);
-        parcelledeterre.addEventListener(click =>{                                  // Il faut arroser avant pousseplante limite clicker sur un arrosoir qui lui addevent pousseplante
+        parcelledeterre.addEventListener('click', function() {                                  // Il faut arroser avant pousseplante limite clicker sur un arrosoir qui lui addevent pousseplante
             this.poussePlante(parcelledeterre);
-        })
+          }
+        )
     }
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-class ParcePousse extends Parcelle {
+class ParcePousse extends ParceTerre {
     constructor(graine, parcelle, player) {
         super(1,1);
         this.graineChoisie = graine;
